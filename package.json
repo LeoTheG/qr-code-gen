@@ -42,5 +42,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://leotheg.github.io/qr-code-gen"
+  "homepage": "https://leotheg.github.io/qr-code-gen",
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  }
 }

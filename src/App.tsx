@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useRef } from "react";
 
-function App() {
+const QRCodeGenerator = () => {
+  const [url, setUrl] = useState("");
+  const qrRef = useRef(null);
+
+  const generateQRCode = () => {
+    if (qrRef.current) {
+      console.log("clearing...");
+      //@ts-ignore
+      qrRef.current.innerHTML = ""; // Clear previous QR code
+      //@ts-ignore
+      const QRCode = window.QRCode;
+      new QRCode(qrRef.current, {
+        text: url,
+        width: 128,
+        height: 128
+      });
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>QR Code Generator</h1>
+      <input
+        type="text"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        placeholder="Enter website URL"
+      />
+      <button onClick={generateQRCode}>Generate QR Code</button>
+      <div ref={qrRef} style={{ marginTop: "20px" }}></div>
     </div>
   );
-}
+};
 
-export default App;
+export default QRCodeGenerator;
